@@ -3579,6 +3579,10 @@ def decodePacket(message):
                 if config.mysql_active or config.sqlite_active or config.pgsql_active:
                         insert_database(timestamp, unixtime_utc, packettype, subtype, seqnbr, 0, 0, sensor_id, 0, 0, 0, int(sensor_power), 0, 0, 0, 0, 0, 0, 0, 0)
 
+		# RRD
+		if config.rrd_active == True:
+			rfxrrd.rrd1Metric(packettype, sensor_id, int(sensor_power), config.rrd_path)
+
 		logger.debug("Decode packetType 0x" + str(packettype) + " - End")
 	
 	# ---------------------------------------

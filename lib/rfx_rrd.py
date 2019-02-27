@@ -60,9 +60,13 @@ def rrd1Metric (sensortype, sensorid, metric1, rrd_root):
 		# 5A: Energy
 		if sensortype == '5A' :
 			DS1 = "Watt"
-		
-		# Create the rrd
-		rrdtool.create(rrdfile, '--step', '30', '--start', '0', 'DS:%s:GAUGE:120:U:U' % (DS1), 'RRA:AVERAGE:0.5:1:1051200', 'RRA:AVERAGE:0.5:10:210240')
+		        # Create the rrd
+		        rrdtool.create(rrdfile, '--step', '30', '--start', '0', 'DS:%s:GAUGE:120:U:U' % (DS1), 'RRA:AVERAGE:0.5:1:1051200', 'RRA:AVERAGE:0.5:10:210240')
+		if sensortype == '71' :
+                        DS1 = "energy"
+		        rrdtool.create(rrdfile, '--step', '60', '--start', '0', 'DS:%s:COUNTER:1200:0:U' % (DS1), 'RRA:AVERAGE:0.5:1:525600', 'RRA:AVERAGE:0.5:30:175200')
+
+
 	
 	# Update the rdd with new values
 	rrdtool.update('%s' % (rrdfile), 'N:%s' % (metric1) )
